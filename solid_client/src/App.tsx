@@ -7,6 +7,8 @@ interface Message {
   color: string;
 }
 
+const PORT = 4003;
+
 const MessageComponent = () => {
   const [messages, setMessages] = createSignal<Message[]>([]);
   const [newMessage, setNewMessage] = createSignal<Message>({
@@ -17,7 +19,7 @@ const MessageComponent = () => {
 
   const fetchMessages = async () => {
     try {
-      const response = await fetch("http://localhost:4001/message");
+      const response = await fetch(`http://localhost:${PORT}/message`);
       const data = await response.json();
       setMessages(data);
     } catch (error) {
@@ -27,7 +29,7 @@ const MessageComponent = () => {
 
   const createNewMessage = async () => {
     try {
-      await fetch("http://localhost:4001/message", {
+      await fetch(`http://localhost:${PORT}/message`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
